@@ -1,0 +1,1 @@
+export { getIsAuthenticated } from './selectors';

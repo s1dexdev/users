@@ -1,0 +1,1 @@
+export const getIsAuthenticated = () => false;

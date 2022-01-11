@@ -1,0 +1,12 @@
+.nav {
+    &__link {
+        margin-right: 15px;
+
+        color: rgb(9, 32, 134);
+        text-decoration: none;
+    }
+
+    &__link:hover {
+        text-decoration: underline;
+    }
+}

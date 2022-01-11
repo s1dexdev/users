@@ -26,6 +26,7 @@ export const authReducer = <T>(state: IState, action: IAction<T>) => {
 
     switch (action.type) {
         case Type.LOGIN_REQUEST:
+        case Type.LOGOUT_REQUEST:
             return {
                 ...state,
                 isAuthenticated: setFalse(),
@@ -41,7 +42,16 @@ export const authReducer = <T>(state: IState, action: IAction<T>) => {
                 error: setNull(),
             };
 
+        case Type.LOGOUT_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: setFalse(),
+                isLoading: setFalse(),
+                error: setNull(),
+            };
+
         case Type.LOGIN_ERROR:
+        case Type.LOGOUT_ERROR:
             return {
                 ...state,
                 isAuthenticated: setNull(),

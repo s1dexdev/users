@@ -17,3 +17,16 @@ export const loginError = <T>(data: T): IAction<T> => ({
     type: Type.LOGIN_ERROR,
     payload: data,
 });
+
+export const logoutRequest = <T>(): IAction<T> => ({
+    type: Type.LOGOUT_REQUEST,
+});
+
+export const logoutSuccess = <T>(): IAction<T> => ({
+    type: Type.LOGOUT_SUCCESS,
+});
+
+export const logoutError = <T>(data: T): IAction<T> => ({
+    type: Type.LOGOUT_ERROR,
+    payload: data,
+});

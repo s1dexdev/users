@@ -1,32 +1,15 @@
-import { Route, Navigate, RouteProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getIsAuthenticated } from '../../redux/auth/';
+import { Navigate } from 'react-router-dom';
+import { isAuthenticated } from '../../redux/auth/selectors';
+import { navConfig } from '../../utils/constants';
 
 interface IProps {
-    redirectTo: string;
-    children: React.ReactNode;
-    restricted: boolean;
+    component: React.ComponentType;
 }
 
-export const PublicRoute = ({
-    redirectTo,
-    children,
-    ...routeProps
-}: IProps & RouteProps): JSX.Element => {
-    const isLoggedIn = useSelector(getIsAuthenticated);
+export function PublicRoute({ component: Component }: IProps): JSX.Element {
+    const isAuth = useSelector(isAuthenticated);
+    const { users } = navConfig;
 
-    return (
-        <Route
-            {...routeProps}
-            element={
-                isLoggedIn && routeProps.restricted ? (
-                    <Navigate replace to={redirectTo} />
-                ) : (
-                    children
-                )
-            }
-        ></Route>
-    );
-};
-
-export default PublicRoute;
+    return isAuth ? <Navigate replace to={users.path} /> : <Component />;
+}

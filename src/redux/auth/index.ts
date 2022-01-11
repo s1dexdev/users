@@ -1,1 +1,2 @@
-export { getIsAuthenticated } from './selectors';
+export { authReducer } from './reducer';
+export { watchAuth } from './sagas';

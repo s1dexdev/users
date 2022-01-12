@@ -1,27 +1,31 @@
+import { IAction } from '../interfaces';
 import * as Type from './types';
 
-interface IState {
+interface IAuthState {
     isAuthenticated: boolean;
     isLoading: boolean;
     error: null | Error;
-}
-
-interface IAction<T> {
-    type: string;
-    payload: T;
 }
 
 const setFalse = () => false;
 const setTrue = () => true;
 const setNull = () => null;
 
-const initialState: IState = {
-    isAuthenticated: setFalse(),
+const getCurrentUser = () => {
+    const { isAuthenticated } = JSON.parse(
+        localStorage.getItem('persist:token')!,
+    );
+
+    return Boolean(isAuthenticated);
+};
+
+const initialState: IAuthState = {
+    isAuthenticated: getCurrentUser(),
     isLoading: setFalse(),
     error: setNull(),
 };
 
-export const authReducer = <T>(state: IState, action: IAction<T>) => {
+export const authReducer = <T>(state: IAuthState, action: IAction<T>) => {
     state = state || initialState;
 
     switch (action.type) {
@@ -29,7 +33,6 @@ export const authReducer = <T>(state: IState, action: IAction<T>) => {
         case Type.LOGOUT_REQUEST:
             return {
                 ...state,
-                isAuthenticated: setFalse(),
                 isLoading: setTrue(),
                 error: setNull(),
             };
@@ -56,7 +59,7 @@ export const authReducer = <T>(state: IState, action: IAction<T>) => {
                 ...state,
                 isAuthenticated: setNull(),
                 isLoading: setFalse(),
-                error: setNull(),
+                error: action.payload,
             };
 
         default:

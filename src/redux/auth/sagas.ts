@@ -19,7 +19,7 @@ function* loginSaga() {
     }
 }
 
-function* logoutSaga() {
+function* logoutSaga(): Generator {
     try {
         yield call(request);
         yield put(logoutSuccess());

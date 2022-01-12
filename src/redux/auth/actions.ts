@@ -1,9 +1,5 @@
+import { IAction } from '../interfaces';
 import * as Type from './types';
-
-interface IAction<T> {
-    type: string;
-    payload?: T;
-}
 
 export const loginRequest = <T>(): IAction<T> => ({
     type: Type.LOGIN_REQUEST,

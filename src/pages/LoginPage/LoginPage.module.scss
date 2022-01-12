@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.loginWrap {
+    width: 300px;
+    margin: 0 auto;
+    padding: 25px;
+
+    background-color: #ffffff;
+    border-radius: $border-radius;
+
+    &__title {
+        margin-bottom: 30px;
+
+        font-size: 18px;
+        font-weight: 500;
+
+        text-align: center;
+    }
+
+    & button {
+        display: block;
+        width: 100px;
+        margin: 0 auto;
+    }
+}

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Container, AppBar } from '../';
+import { Container, AppBar } from '../../components';
 import { isAuthenticated } from '../../redux/auth/selectors';
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import styles from './Header.module.scss';

@@ -18,7 +18,7 @@ export function LoginPage() {
         <Container>
             <div>
                 <h1>Login page</h1>
-                <Button text="Log In" onHandleClick={handleClick} />
+                <Button text="Log in" onHandleClick={handleClick} />
             </div>
             {isLoading ? <Spinner /> : null}
         </Container>

@@ -1,0 +1,36 @@
+@import '../../styles/variables.scss';
+
+.nav {
+    margin-top: 10px;
+
+    &__link {
+        display: inline-block;
+
+        margin-right: 15px;
+        padding: 5px;
+
+        color: $primary-text-color;
+        font-weight: 500;
+        text-decoration: none;
+
+        transition: transform $transition-duration $timing-function;
+
+        &:hover {
+            text-decoration: underline;
+            transform: scale($scale-value);
+        }
+    }
+
+    &__link_activated {
+        color: $active-link-color;
+
+        border: 1px solid $active-link-color;
+        border-radius: $border-radius;
+
+        -webkit-box-shadow: $nav-shadow;
+        -moz-box-shadow: $nav-shadow;
+        box-shadow: $nav-shadow;
+
+        transform: scale($scale-value);
+    }
+}

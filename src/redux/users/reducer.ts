@@ -13,8 +13,8 @@ const setNull = () => null;
 
 const initialState: IUserState = {
     users: [],
-    isLoading: setFalse(),
-    error: setNull(),
+    isLoading: false,
+    error: null,
 };
 
 interface IAction<T> {
@@ -36,7 +36,7 @@ export const usersReducer = <T>(state: IUserState, action: IAction<T>) => {
         case Type.FETCH_USERS_SUCCESS:
             return {
                 ...state,
-                users: [...state.users, ...action.payload],
+                users: action.payload,
                 isLoading: setFalse(),
                 error: setNull(),
             };
@@ -49,6 +49,6 @@ export const usersReducer = <T>(state: IUserState, action: IAction<T>) => {
             };
 
         default:
-            return initialState;
+            return state;
     }
 };

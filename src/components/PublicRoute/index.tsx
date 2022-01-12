@@ -7,9 +7,9 @@ interface IProps {
     component: React.ComponentType;
 }
 
-export function PublicRoute({ component: Component }: IProps): JSX.Element {
+export const PublicRoute = ({ component: Component }: IProps) => {
     const isAuth = useSelector(isAuthenticated);
     const { users } = navConfig;
 
     return isAuth ? <Navigate replace to={users.path} /> : <Component />;
-}
+};

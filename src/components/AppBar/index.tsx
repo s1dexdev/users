@@ -6,7 +6,7 @@ import { loading } from '../../redux/auth/selectors';
 import { navConfig } from '../../utils/constants';
 import styles from './AppBar.module.scss';
 
-export function AppBar() {
+export const AppBar = () => {
     const dispatch = useDispatch();
     const isLoading = useSelector(loading);
     const { users, userInfo } = navConfig;
@@ -31,4 +31,4 @@ export function AppBar() {
             {isLoading && <Spinner />}
         </>
     );
-}
+};

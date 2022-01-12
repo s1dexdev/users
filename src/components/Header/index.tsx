@@ -4,7 +4,7 @@ import { isAuthenticated } from '../../redux/auth/selectors';
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import styles from './Header.module.scss';
 
-export function Header(): JSX.Element {
+export const Header = () => {
     const isAuth = useSelector(isAuthenticated);
 
     return (
@@ -15,4 +15,4 @@ export function Header(): JSX.Element {
             </Container>
         </header>
     );
-}
+};

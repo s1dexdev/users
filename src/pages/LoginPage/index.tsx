@@ -4,7 +4,7 @@ import { loginRequest } from '../../redux/auth/actions';
 import { loading } from '../../redux/auth/selectors';
 import styles from './LoginPage.module.scss';
 
-export function LoginPage() {
+export const LoginPage = () => {
     const dispatch = useDispatch();
     const isLoading = useSelector(loading);
 
@@ -19,4 +19,4 @@ export function LoginPage() {
             {isLoading && <Spinner />}
         </Container>
     );
-}
+};

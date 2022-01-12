@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from '@redux-saga/core/effects';
+import { call, put, takeLatest } from '@redux-saga/core/effects';
 import { FETCH_USERS_REQUEST } from './types';
 import { fetchUsersSuccess, fetchUsersError } from './actions';
 import fetchUsers from '../../API/userService';

@@ -9,11 +9,11 @@ interface IProps {
     path?: string;
 }
 
-export function PrivateRoute({ component: Component, path }: IProps) {
+export const PrivateRoute = ({ component: Component, path }: IProps) => {
     const isAuth = useSelector(isAuthenticated);
     const { login } = navConfig;
 
     path = path || login.path;
 
     return isAuth ? <Component /> : <Navigate to={path} />;
-}
+};

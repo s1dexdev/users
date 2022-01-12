@@ -11,18 +11,10 @@ const setFalse = () => false;
 const setTrue = () => true;
 const setNull = () => null;
 
-const getCurrentUser = () => {
-    const { isAuthenticated } = JSON.parse(
-        localStorage.getItem('persist:token')!,
-    );
-
-    return Boolean(isAuthenticated);
-};
-
 const initialState: IAuthState = {
-    isAuthenticated: getCurrentUser(),
-    isLoading: setFalse(),
-    error: setNull(),
+    isAuthenticated: false,
+    isLoading: false,
+    error: null,
 };
 
 export const authReducer = <T>(state: IAuthState, action: IAction<T>) => {
@@ -57,12 +49,11 @@ export const authReducer = <T>(state: IAuthState, action: IAction<T>) => {
         case Type.LOGOUT_ERROR:
             return {
                 ...state,
-                isAuthenticated: setNull(),
                 isLoading: setFalse(),
                 error: action.payload,
             };
 
         default:
-            return initialState;
+            return state;
     }
 };

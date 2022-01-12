@@ -1,15 +1,18 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Container, UsersList } from '../../components';
 import { fetchUsersRequest } from '../../redux/users/actions';
-import { users as usersSelector } from '../../redux/users/selectors';
 
-export function UsersPage() {
+export const UsersPage = () => {
     const dispatch = useDispatch();
-    const users = useSelector(usersSelector);
 
     useEffect(() => {
         dispatch(fetchUsersRequest());
     }, [dispatch]);
 
-    return <h1>Users page</h1>;
-}
+    return (
+        <Container>
+            <UsersList />
+        </Container>
+    );
+};

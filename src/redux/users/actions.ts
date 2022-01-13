@@ -15,3 +15,8 @@ export const fetchUsersError = <T>(data: T): IAction<T> => ({
     type: Type.FETCH_USERS_ERROR,
     payload: data,
 });
+
+export const addFetchUsersSuccess = <T>(data: T): IAction<T> => ({
+    type: Type.ADD_FETCH_USERS_SUCCESS,
+    payload: data,
+});

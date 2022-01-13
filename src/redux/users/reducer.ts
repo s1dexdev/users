@@ -41,6 +41,14 @@ export const usersReducer = <T>(state: IUserState, action: IAction<T>) => {
                 error: setNull(),
             };
 
+        case Type.ADD_FETCH_USERS_SUCCESS:
+            return {
+                ...state,
+                users: [...state.users, ...action.payload],
+                isLoading: setFalse(),
+                error: setNull(),
+            };
+
         case Type.FETCH_USERS_ERROR:
             return {
                 ...state,

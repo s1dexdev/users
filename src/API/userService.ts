@@ -1,17 +1,26 @@
 import Axios from 'axios';
 import apiConfig from './apiConfig';
+import { IUser } from '../redux/interfaces';
 
-const { baseUrl, params } = apiConfig;
+interface IParams {
+    page: number;
+    results: number;
+}
+
+const { baseUrl, params, defaultFetch } = apiConfig;
 
 Axios.defaults.baseURL = baseUrl;
 Axios.defaults.params = { ...params };
 
-const fetchUsers = async (page = params.page, quantity = params.reuslts) => {
-    Axios.defaults.params.page = page;
-    Axios.defaults.params.results = quantity;
+const fetchUsers = async (options?: IParams): Promise<IUser[]> => {
+    options = options || defaultFetch;
 
-    const response = await Axios.get(`/`);
-    const { results } = response.data;
+    Axios.defaults.params.page = options.page;
+    Axios.defaults.params.results = options.results;
+
+    const {
+        data: { results },
+    } = await Axios.get('/');
 
     return results;
 };

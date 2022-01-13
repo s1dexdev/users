@@ -1,8 +1,10 @@
 const apiConfig = {
     baseUrl: 'https://randomuser.me/api',
-    params: {
+    defaultFetch: {
         page: 1,
-        reuslts: 10,
+        results: 20,
+    },
+    params: {
         seed: 'abc',
         exc: 'email,id,nat,cell',
     },

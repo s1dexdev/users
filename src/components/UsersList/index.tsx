@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { User } from '../../components';
 import { users as usersSelector } from '../../redux/users/selectors';
@@ -9,26 +9,40 @@ import { useOnScreen } from '../../hooks/useOnScreen';
 export const UsersList = () => {
     const dispatch = useDispatch();
     const users = useSelector(usersSelector);
-    const [page, setPage] = useState(2);
+    const [page, setPage] = useState(0);
     const [results, setResults] = useState(10);
+    const [fetching, setFetching] = useState(false);
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    const imageRef = useRef<HTMLUListElement | null>(null);
+    const scrollHandler = (event: any) => {
+        const {
+            documentElement: { scrollHeight, scrollTop },
+        } = event.target;
 
-    const isVisible = useOnScreen(imageRef, '-200px');
+        if (scrollHeight - (scrollTop + window.innerHeight) < 100) {
+            setFetching(true);
+        }
+    };
 
     useEffect(() => {
-        if (!isVisible) {
-            return;
-        }
+        setPage(prevState => prevState + 1);
+        setFetching(false);
+    }, [users]);
 
-        if (imageRef.current) {
-            console.log(isVisible);
+    useEffect(() => {
+        if (fetching) {
+            dispatch(fetchUsersRequest({ page, results }));
         }
-    }, [isVisible, users]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch, fetching]);
+
+    useEffect(() => {
+        document.addEventListener('scroll', scrollHandler);
+
+        return () => document.removeEventListener('scroll', scrollHandler);
+    }, []);
 
     return (
-        <ul ref={imageRef} className={styles.usersList}>
+        <ul className={styles.usersList}>
             {users.map(user => (
                 <User key={user.login.uuid} user={user} />
             ))}

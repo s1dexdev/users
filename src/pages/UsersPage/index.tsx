@@ -15,7 +15,10 @@ export const UsersPage = () => {
 
     return (
         <div className={styles.usersWrap}>
-            <Container>{isLoading ? <Spinner /> : <UsersList />}</Container>
+            <Container>
+                <UsersList />
+            </Container>
+            {isLoading && <Spinner />}
         </div>
     );
 };

@@ -2,13 +2,13 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Spinner } from '../../components';
 import { logoutRequest } from '../../redux/auth/actions';
-import { loading } from '../../redux/auth/selectors';
+import { loadingSelector } from '../../redux/auth/selectors';
 import { navConfig } from '../../utils/constants';
 import styles from './AppBar.module.scss';
 
 export const AppBar = () => {
     const dispatch = useDispatch();
-    const isLoading = useSelector(loading);
+    const isLoading = useSelector(loadingSelector);
     const { users, userInfo } = navConfig;
 
     const logout = () => dispatch(logoutRequest());

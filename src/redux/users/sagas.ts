@@ -5,8 +5,8 @@ import {
     fetchUsersError,
     addFetchUsersSuccess,
 } from './actions';
-import fetchUsers from '../../API/userService';
-import { IUser } from '../interfaces';
+import fetchUsers from '../../api/userService';
+import { User } from '../../interfaces';
 
 interface IParams {
     type: string;
@@ -18,7 +18,7 @@ interface IParams {
 
 function* fetchUsersSaga({ payload }: IParams): Generator {
     try {
-        const users = (yield call(fetchUsers, payload)) as IUser[];
+        const users = (yield call(fetchUsers, payload)) as User[];
 
         if (payload) {
             yield put(addFetchUsersSuccess(users));

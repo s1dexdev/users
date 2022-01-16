@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { isAuthenticated } from '../../redux/auth/selectors';
+import { isAuthenticatedSelector } from '../../redux/auth/selectors';
 import { navConfig } from '../../utils/constants';
 
 interface IProps {
@@ -8,7 +8,7 @@ interface IProps {
 }
 
 export const PublicRoute = ({ component: Component }: IProps) => {
-    const isAuth = useSelector(isAuthenticated);
+    const isAuth = useSelector(isAuthenticatedSelector);
     const { users } = navConfig;
 
     return isAuth ? <Navigate replace to={users.path} /> : <Component />;

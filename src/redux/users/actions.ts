@@ -1,22 +1,17 @@
-import { IAction } from '../interfaces';
 import * as Type from './types';
+import { CreateAction } from '../../interfaces';
 
-export const fetchUsersRequest = <T>(data?: T): IAction<T> => ({
-    type: Type.FETCH_USERS_REQUEST,
-    payload: data,
-});
+const createAction: CreateAction = type => data => ({ type, payload: data });
 
-export const fetchUsersSuccess = <T>(data: T): IAction<T> => ({
-    type: Type.FETCH_USERS_SUCCESS,
-    payload: data,
-});
+const fetchUsersRequest = createAction(Type.FETCH_USERS_REQUEST);
+const fetchUsersSuccess = createAction(Type.FETCH_USERS_SUCCESS);
+const fetchUsersError = createAction(Type.FETCH_USERS_ERROR);
 
-export const fetchUsersError = <T>(data: T): IAction<T> => ({
-    type: Type.FETCH_USERS_ERROR,
-    payload: data,
-});
+const addFetchUsersSuccess = createAction(Type.ADD_FETCH_USERS_SUCCESS);
 
-export const addFetchUsersSuccess = <T>(data: T): IAction<T> => ({
-    type: Type.ADD_FETCH_USERS_SUCCESS,
-    payload: data,
-});
+export {
+    fetchUsersRequest,
+    fetchUsersSuccess,
+    fetchUsersError,
+    addFetchUsersSuccess,
+};

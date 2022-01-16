@@ -1,23 +1,19 @@
-import { IAction } from '../interfaces';
 import * as Type from './types';
+import { Action } from '../../interfaces';
 
-interface IAuthState {
+interface AuthState {
     isAuthenticated: boolean;
     isLoading: boolean;
     error: null | Error;
 }
 
-const setFalse = () => false;
-const setTrue = () => true;
-const setNull = () => null;
-
-const initialState: IAuthState = {
+const initialState: AuthState = {
     isAuthenticated: false,
     isLoading: false,
     error: null,
 };
 
-export const authReducer = <T>(state: IAuthState, action: IAction<T>) => {
+export const authReducer = <T>(state: AuthState, action: Action<T>) => {
     state = state || initialState;
 
     switch (action.type) {
@@ -25,31 +21,31 @@ export const authReducer = <T>(state: IAuthState, action: IAction<T>) => {
         case Type.LOGOUT_REQUEST:
             return {
                 ...state,
-                isLoading: setTrue(),
-                error: setNull(),
+                isLoading: true,
+                error: null,
             };
 
         case Type.LOGIN_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: setTrue(),
-                isLoading: setFalse(),
-                error: setNull(),
+                isAuthenticated: true,
+                isLoading: false,
+                error: null,
             };
 
         case Type.LOGOUT_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: setFalse(),
-                isLoading: setFalse(),
-                error: setNull(),
+                isAuthenticated: false,
+                isLoading: false,
+                error: null,
             };
 
         case Type.LOGIN_ERROR:
         case Type.LOGOUT_ERROR:
             return {
                 ...state,
-                isLoading: setFalse(),
+                isLoading: false,
                 error: action.payload,
             };
 

@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Spinner, Container } from '../../components';
 import { loginRequest } from '../../redux/auth/actions';
-import { loading } from '../../redux/auth/selectors';
+import { loadingSelector } from '../../redux/auth/selectors';
 import styles from './LoginPage.module.scss';
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
-    const isLoading = useSelector(loading);
+    const isLoading = useSelector(loadingSelector);
 
     const login = () => dispatch(loginRequest());
 

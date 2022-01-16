@@ -1,58 +1,54 @@
-import { IUser } from '../interfaces';
 import * as Type from './types';
+import { User } from '../../interfaces';
 
-interface IUserState {
-    users: IUser[];
+interface UserState {
+    users: User[];
     isLoading: boolean;
     error: null | Error;
 }
 
-const setFalse = () => false;
-const setTrue = () => true;
-const setNull = () => null;
+interface Action<T> {
+    type: string;
+    payload: T & T[];
+}
 
-const initialState: IUserState = {
+const initialState: UserState = {
     users: [],
     isLoading: false,
     error: null,
 };
 
-interface IAction<T> {
-    type: string;
-    payload: T & T[];
-}
-
-export const usersReducer = <T>(state: IUserState, action: IAction<T>) => {
+export const usersReducer = <T>(state: UserState, action: Action<T>) => {
     state = state || initialState;
 
     switch (action.type) {
         case Type.FETCH_USERS_REQUEST:
             return {
                 ...state,
-                isLoading: setTrue(),
-                error: setNull(),
+                isLoading: true,
+                error: null,
             };
 
         case Type.FETCH_USERS_SUCCESS:
             return {
                 ...state,
                 users: action.payload,
-                isLoading: setFalse(),
-                error: setNull(),
+                isLoading: false,
+                error: null,
             };
 
         case Type.ADD_FETCH_USERS_SUCCESS:
             return {
                 ...state,
                 users: [...state.users, ...action.payload],
-                isLoading: setFalse(),
-                error: setNull(),
+                isLoading: false,
+                error: null,
             };
 
         case Type.FETCH_USERS_ERROR:
             return {
                 ...state,
-                isLoading: setFalse(),
+                isLoading: false,
                 error: action.payload,
             };
 

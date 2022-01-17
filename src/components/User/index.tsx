@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { User as IUser } from '../../interfaces';
 import { navConfig } from '../../utils/constants';
 import styles from './User.module.scss';
@@ -8,6 +8,8 @@ interface IProps {
 }
 
 export const User = ({ user }: IProps) => {
+    const location = useLocation();
+
     const { name, picture, dob, gender } = user;
 
     const parseDate = (date: string) => new Date(date).toLocaleDateString();
@@ -16,8 +18,8 @@ export const User = ({ user }: IProps) => {
         <li className={`${styles.person} ${styles[gender]}`}>
             <NavLink
                 className={styles.person__link}
-                to={`${navConfig.users.path}/${user.login.uuid}`}
-                state={user}
+                to={`${user.login.uuid}`}
+                state={{ user, from: location }}
             >
                 <img
                     className={styles.person__photo}

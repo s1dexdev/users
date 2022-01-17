@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Spinner } from '../../components';
 import { logoutRequest } from '../../redux/auth/actions';
@@ -9,6 +9,7 @@ import styles from './AppBar.module.scss';
 export const AppBar = () => {
     const dispatch = useDispatch();
     const isLoading = useSelector(loadingSelector);
+    const location = useLocation();
     const { users, userInfo } = navConfig;
 
     const logout = () => dispatch(logoutRequest());
@@ -20,10 +21,19 @@ export const AppBar = () => {
     return (
         <>
             <nav className={styles.nav}>
-                <NavLink end to={users.path} className={setStyleLink}>
+                <NavLink
+                    end
+                    to={users.path}
+                    className={setStyleLink}
+                    state={{ from: location }}
+                >
                     {users.label}
                 </NavLink>
-                <NavLink to={userInfo.path} className={setStyleLink}>
+                <NavLink
+                    to={userInfo.path}
+                    className={setStyleLink}
+                    state={{ from: location }}
+                >
                     {userInfo.label}
                 </NavLink>
                 <Button text={'Log out'} onHandleClick={logout} />

@@ -1,24 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { Container, UsersList, Spinner } from '../../components';
 import { fetchUsersRequest } from '../../redux/users/actions';
-import { loadingSelector } from '../../redux/users/selectors';
+import { loadingSelector, usersSelector } from '../../redux/users/selectors';
 import styles from './UsersPage.module.scss';
 
 export const UsersPage = () => {
     const dispatch = useDispatch();
+    const users = useSelector(usersSelector);
     const isLoading = useSelector(loadingSelector);
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const currentPage = searchParams.get('page');
-
     useEffect(() => {
-        if (!currentPage) {
+        const page = Number(searchParams.get('page'));
+
+        if ((users.length && page) === 0) {
             dispatch(fetchUsersRequest());
-            setSearchParams('page=1&results=20');
+            setSearchParams('page=1');
         }
-    }, [dispatch, currentPage, setSearchParams]);
+    }, [dispatch, users]);
 
     return (
         <div className={styles.usersWrap}>

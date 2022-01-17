@@ -1,23 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { User } from '../../components';
 import { fetchUsersRequest } from '../../redux/users/actions';
-import { User as UserType } from '../../interfaces';
-import styles from './UsersList.module.scss';
-import { useSearchParams } from 'react-router-dom';
 import { usersSelector } from '../../redux/users/selectors';
+import styles from './UsersList.module.scss';
 
 export const UsersList = () => {
     const dispatch = useDispatch();
-
     const users = useSelector(usersSelector);
-
     const [searchParams, setSearchParams] = useSearchParams();
-    let currentPage = Number(searchParams.get('page'));
-    // const [page, setPage] = useState(currentPage || 1);
     const ulRef = useRef<HTMLUListElement>(null);
 
-    // console.log(currentPage);
+    let page = Number(searchParams.get('page'));
 
     useEffect(() => {
         if (!ulRef.current?.lastElementChild) {
@@ -25,9 +21,9 @@ export const UsersList = () => {
         }
 
         const fetchAdditionalUsers = () => {
-            currentPage += 1;
-            dispatch(fetchUsersRequest({ currentPage, results: 10 }));
-            setSearchParams(`page=${currentPage}&results=${10}`);
+            page += 1;
+            setSearchParams(`page=${page}`);
+            dispatch(fetchUsersRequest({ page, results: 10 }));
         };
 
         const io = new IntersectionObserver(([entry], observer) => {
@@ -38,8 +34,6 @@ export const UsersList = () => {
         });
 
         io.observe(ulRef.current.lastElementChild);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, users]);
 
     return (

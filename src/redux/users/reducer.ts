@@ -1,48 +1,51 @@
 import * as Type from './types';
-import { Action } from '../../interfaces';
+import { User } from '../../interfaces';
 
-interface AuthState {
-    isAuthenticated: boolean;
+interface UserState {
+    users: User[];
     isLoading: boolean;
     error: null | Error;
 }
 
-const initialState: AuthState = {
-    isAuthenticated: false,
+interface Action<T> {
+    type: string;
+    payload: T & T[];
+}
+
+const initialState: UserState = {
+    users: [],
     isLoading: false,
     error: null,
 };
 
-export const authReducer = <T>(state: AuthState, action: Action<T>) => {
+export const usersReducer = <T>(state: UserState, action: Action<T>) => {
     state = state || initialState;
 
     switch (action.type) {
-        case Type.LOGIN_REQUEST:
-        case Type.LOGOUT_REQUEST:
+        case Type.FETCH_USERS_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: null,
             };
 
-        case Type.LOGIN_SUCCESS:
+        case Type.FETCH_USERS_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: true,
+                users: action.payload,
                 isLoading: false,
                 error: null,
             };
 
-        case Type.LOGOUT_SUCCESS:
+        case Type.ADD_FETCH_USERS_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: false,
+                users: [...state.users, ...action.payload],
                 isLoading: false,
                 error: null,
             };
 
-        case Type.LOGIN_ERROR:
-        case Type.LOGOUT_ERROR:
+        case Type.FETCH_USERS_ERROR:
             return {
                 ...state,
                 isLoading: false,

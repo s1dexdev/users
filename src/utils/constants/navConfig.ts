@@ -8,7 +8,7 @@ export const navConfig = {
         label: 'Users',
     },
     userInfo: {
-        path: '/users/:userId',
+        path: '/users/:id',
         label: 'User info',
     },
 };

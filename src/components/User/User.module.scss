@@ -1,0 +1,57 @@
+@import '../../assets/styles/variables.scss';
+
+.person {
+    width: calc((100% - 6 * 30px) / 6);
+    margin: 15px;
+    padding: 5px;
+
+    color: #ffffff;
+
+    border-radius: $border-radius;
+
+    overflow: hidden;
+    transition: transform $transition-duration $timing-function;
+
+    &__link {
+        color: inherit;
+
+        text-decoration: none;
+    }
+
+    &__photo {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+        height: auto;
+    }
+
+    &__name,
+    &__birthday,
+    &__gender {
+        font-size: 16px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    &__name {
+        margin-bottom: 5px;
+    }
+    &__birthday {
+        margin-bottom: 5px;
+    }
+    &__gender {
+    }
+
+    &:hover {
+        transform: scale($scale-value);
+        cursor: pointer;
+    }
+}
+
+.male {
+    background-color: $male-bcg-color-card;
+}
+
+.female {
+    background-color: $female-bcg-color-card;
+}

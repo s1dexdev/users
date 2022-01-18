@@ -1,29 +1,44 @@
-import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Button } from '../../components';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Spinner } from '../../components';
 import { logoutRequest } from '../../redux/auth/actions';
+import { loadingSelector } from '../../redux/auth/selectors';
 import { navConfig } from '../../utils/constants';
 import styles from './AppBar.module.scss';
 
-export function AppBar() {
+export const AppBar = () => {
     const dispatch = useDispatch();
+    const isLoading = useSelector(loadingSelector);
+    const location = useLocation();
     const { users, userInfo } = navConfig;
 
     const logout = () => dispatch(logoutRequest());
 
-    const setStyleLink = ({ isActive }: { isActive: boolean }) =>
+    const setClass = ({ isActive }: { isActive: boolean }) =>
         `${styles.nav__link}` +
         (isActive ? ` ${styles.nav__link_activated}` : '');
 
     return (
-        <nav className={styles.nav}>
-            <NavLink end to={users.path} className={setStyleLink}>
-                {users.label}
-            </NavLink>
-            <NavLink to={userInfo.path} className={setStyleLink}>
-                {userInfo.label}
-            </NavLink>
-            <Button text={'Log out'} onHandleClick={logout} />
-        </nav>
+        <>
+            <nav className={styles.nav}>
+                <NavLink
+                    end
+                    to={users.path}
+                    className={setClass}
+                    state={{ from: location }}
+                >
+                    {users.label}
+                </NavLink>
+                <NavLink
+                    to={userInfo.path}
+                    className={setClass}
+                    state={{ from: location }}
+                >
+                    {userInfo.label}
+                </NavLink>
+                <Button text={'Log out'} onHandleClick={logout} />
+            </nav>
+            {isLoading && <Spinner />}
+        </>
     );
-}
+};

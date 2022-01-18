@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { isAuthenticated } from '../../redux/auth/selectors';
+import { isAuthenticatedSelector } from '../../redux/auth/selectors';
 import { navConfig } from '../../utils/constants';
 
 interface IProps {
@@ -9,11 +9,11 @@ interface IProps {
     path?: string;
 }
 
-export function PrivateRoute({ component: Component, path }: IProps) {
-    const isAuth = useSelector(isAuthenticated);
+export const PrivateRoute = ({ component: Component, path }: IProps) => {
+    const isAuth = useSelector(isAuthenticatedSelector);
     const { login } = navConfig;
 
     path = path || login.path;
 
     return isAuth ? <Component /> : <Navigate to={path} />;
-}
+};

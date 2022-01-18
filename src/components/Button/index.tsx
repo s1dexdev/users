@@ -6,10 +6,10 @@ interface IProps {
     onHandleClick: (event: MouseEvent) => void;
 }
 
-export function Button({ text, onHandleClick }: IProps): JSX.Element {
+export const Button = ({ text, onHandleClick }: IProps) => {
     return (
         <button className={styles.btn} type="button" onClick={onHandleClick}>
             {text}
         </button>
     );
-}
+};

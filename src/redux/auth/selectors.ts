@@ -1,12 +1,7 @@
-interface IState {
-    authReducer: {
-        isAuthenticated: boolean;
-        isLoading: boolean;
-        erro: Error;
-    };
-}
+import { State } from '../../interfaces';
 
-export const isAuthenticated = (state: IState) =>
+const isAuthenticatedSelector = (state: State) =>
     state.authReducer.isAuthenticated;
+const loadingSelector = (state: State) => state.authReducer.isLoading;
 
-export const loading = (state: IState) => state.authReducer.isLoading;
+export { isAuthenticatedSelector, loadingSelector };

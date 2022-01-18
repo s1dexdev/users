@@ -1,26 +1,22 @@
-import { MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Spinner, Container } from '../../components';
 import { loginRequest } from '../../redux/auth/actions';
-import { loading } from '../../redux/auth/selectors';
+import { loadingSelector } from '../../redux/auth/selectors';
+import styles from './LoginPage.module.scss';
 
-export function LoginPage() {
+export const LoginPage = () => {
     const dispatch = useDispatch();
-    const isLoading = useSelector(loading);
+    const isLoading = useSelector(loadingSelector);
 
-    const handleClick = (event: MouseEvent) => {
-        event.preventDefault();
-
-        dispatch(loginRequest());
-    };
+    const login = () => dispatch(loginRequest());
 
     return (
         <Container>
-            <div>
-                <h1>Login page</h1>
-                <Button text="Log in" onHandleClick={handleClick} />
+            <div className={styles.loginWrap}>
+                <p className={styles.loginWrap__title}>Click Log in</p>
+                <Button text="Log in" onHandleClick={login} />
             </div>
-            {isLoading ? <Spinner /> : null}
+            {isLoading && <Spinner />}
         </Container>
     );
-}
+};

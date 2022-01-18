@@ -1,32 +1,21 @@
 import * as Type from './types';
+import { CreateAction } from '../../interfaces';
 
-interface IAction<T> {
-    type: string;
-    payload?: T;
-}
+const createAction: CreateAction = type => data => ({ type, payload: data });
 
-export const loginRequest = <T>(): IAction<T> => ({
-    type: Type.LOGIN_REQUEST,
-});
+const loginRequest = createAction(Type.LOGIN_REQUEST);
+const loginSuccess = createAction(Type.LOGIN_SUCCESS);
+const loginError = createAction(Type.LOGIN_ERROR);
 
-export const loginSuccess = <T>(): IAction<T> => ({
-    type: Type.LOGIN_SUCCESS,
-});
+const logoutRequest = createAction(Type.LOGOUT_REQUEST);
+const logoutSuccess = createAction(Type.LOGOUT_SUCCESS);
+const logoutError = createAction(Type.LOGOUT_ERROR);
 
-export const loginError = <T>(data: T): IAction<T> => ({
-    type: Type.LOGIN_ERROR,
-    payload: data,
-});
-
-export const logoutRequest = <T>(): IAction<T> => ({
-    type: Type.LOGOUT_REQUEST,
-});
-
-export const logoutSuccess = <T>(): IAction<T> => ({
-    type: Type.LOGOUT_SUCCESS,
-});
-
-export const logoutError = <T>(data: T): IAction<T> => ({
-    type: Type.LOGOUT_ERROR,
-    payload: data,
-});
+export {
+    loginRequest,
+    loginSuccess,
+    loginError,
+    logoutRequest,
+    logoutSuccess,
+    logoutError,
+};

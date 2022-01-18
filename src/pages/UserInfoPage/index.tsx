@@ -1,25 +1,21 @@
-import { Location, useLocation } from 'react-router-dom';
-import { UserInfo, Container } from '../../components';
+import { useLocation } from 'react-router-dom';
+import { UserInfo } from '../../components';
 import { navConfig } from '../../utils/constants';
 import { User } from '../../interfaces';
-
-interface State {
-    user: User;
-    from: Location;
-}
+import styles from './UserInfoPage.module.scss';
 
 export const UserInfoPage = () => {
-    const { pathname, state } = useLocation();
-    const { user } = state as State;
-    const { userInfo } = navConfig;
+    const location = useLocation();
 
     return (
-        <Container>
-            {pathname === userInfo.path ? (
-                <p>Please, choose a User</p>
+        <>
+            {location.pathname === navConfig.user.path ? (
+                <p className={styles.text}>
+                    Select a user in order to see his information
+                </p>
             ) : (
-                <UserInfo user={user} />
+                <UserInfo user={location.state as User} />
             )}
-        </Container>
+        </>
     );
 };

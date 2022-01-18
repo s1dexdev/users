@@ -14,7 +14,7 @@ export const AppBar = () => {
 
     const logout = () => dispatch(logoutRequest());
 
-    const setStyleLink = ({ isActive }: { isActive: boolean }) =>
+    const setClass = ({ isActive }: { isActive: boolean }) =>
         `${styles.nav__link}` +
         (isActive ? ` ${styles.nav__link_activated}` : '');
 
@@ -24,14 +24,14 @@ export const AppBar = () => {
                 <NavLink
                     end
                     to={users.path}
-                    className={setStyleLink}
+                    className={setClass}
                     state={{ from: location }}
                 >
                     {users.label}
                 </NavLink>
                 <NavLink
                     to={userInfo.path}
-                    className={setStyleLink}
+                    className={setClass}
                     state={{ from: location }}
                 >
                     {userInfo.label}

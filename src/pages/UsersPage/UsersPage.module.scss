@@ -1,3 +1,36 @@
+@import '../../assets/styles/variables.scss';
+
 .usersWrap {
+    position: relative;
     margin-bottom: 60px;
+
+    &__btnUp {
+        position: sticky;
+        bottom: 50px;
+
+        display: block;
+        width: 60px;
+        height: 60px;
+        margin-left: auto;
+        margin-right: -125px;
+
+        font-size: 30px;
+        color: $active-link-color;
+
+        background-color: #ffffff;
+        border: 1px solid $active-link-color;
+        border-radius: 50%;
+
+        transition: color $transition-duration $timing-function,
+            background-color $transition-duration $timing-function,
+            border-color $transition-duration $timing-function;
+
+        cursor: pointer;
+
+        &:hover {
+            color: #ffffff;
+            background-color: $active-link-color;
+            border-color: #ffffff;
+        }
+    }
 }

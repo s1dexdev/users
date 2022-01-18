@@ -18,11 +18,11 @@ const fetchUsers = async (options?: IParams): Promise<User[]> => {
     Axios.defaults.params.page = options.page;
     Axios.defaults.params.results = options.results;
 
-    const { data } = await Axios.get('/');
+    const {
+        data: { results },
+    } = await Axios.get('/');
 
-    console.log(data.info);
-
-    return data.results;
+    return results;
 };
 
 export default fetchUsers;

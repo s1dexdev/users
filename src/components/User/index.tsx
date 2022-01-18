@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom';
+import { parseDate } from '../../utils/helpers';
 import { User as IUser } from '../../interfaces';
-import { navConfig } from '../../utils/constants';
 import styles from './User.module.scss';
 
 interface IProps {
@@ -9,10 +9,7 @@ interface IProps {
 
 export const User = ({ user }: IProps) => {
     const location = useLocation();
-
     const { name, picture, dob, gender } = user;
-
-    const parseDate = (date: string) => new Date(date).toLocaleDateString();
 
     return (
         <li className={`${styles.person} ${styles[gender]}`}>
@@ -31,7 +28,9 @@ export const User = ({ user }: IProps) => {
                 <p
                     className={styles.person__name}
                 >{`${name.first} ${name.last}`}</p>
-                <p className={styles.person__birthday}>{parseDate(dob.date)}</p>
+                <p className={styles.person__birthday}>
+                    {parseDate(new Date(dob.date))}
+                </p>
                 <p className={styles.person__gender}>{gender}</p>
             </NavLink>
         </li>

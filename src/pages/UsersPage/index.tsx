@@ -12,20 +12,35 @@ export const UsersPage = () => {
     const users = useSelector(usersSelector);
     const isLoading = useSelector(loadingSelector);
     const [searchParams, setSearchParams] = useSearchParams();
+    const currentPage = Number(searchParams.get('page'));
 
     useEffect(() => {
-        const page = Number(searchParams.get('page'));
-
-        if ((users.length && page) === 0) {
+        if ((users.length && currentPage) === 0) {
             dispatch(fetchUsersRequest());
             setSearchParams('page=1');
         }
     }, [dispatch, users]);
 
+    const scrollUp = () =>
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+
     return (
         <div className={styles.usersWrap}>
             <Container>
                 <UsersList />
+                {currentPage > 1 && (
+                    <button
+                        className={styles.usersWrap__btnUp}
+                        type="button"
+                        onClick={scrollUp}
+                    >
+                        &#10595;
+                    </button>
+                )}
+
                 {isLoading && <Spinner />}
             </Container>
         </div>

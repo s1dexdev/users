@@ -1,11 +1,9 @@
-import { format } from 'date-fns';
+import { parseDate } from '../../utils/helpers';
 import { User } from '../../interfaces';
 import styles from './UserInfo.module.scss';
 
 export const UserInfo = ({ user }: { user: User }) => {
     const { picture, name, dob, gender, location, phone, registered } = user;
-
-    const parseDate = (date: string) => format(Date.parse(date), 'PP');
 
     return (
         <div className={`${styles.userBox}`}>
@@ -23,7 +21,7 @@ export const UserInfo = ({ user }: { user: User }) => {
                 </p>
                 <p>
                     <b>Date of Birth: </b>
-                    {parseDate(dob.date)}
+                    {parseDate(new Date(dob.date))}
                 </p>
                 <p>
                     <b>Gender: </b>
@@ -39,7 +37,7 @@ export const UserInfo = ({ user }: { user: User }) => {
                 </p>
                 <p>
                     <b>Registration date: </b>
-                    {parseDate(registered.date)}
+                    {parseDate(new Date(registered.date))}
                 </p>
             </div>
         </div>

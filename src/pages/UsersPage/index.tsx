@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { Container, UsersList, Spinner } from '../../components';
+import { UsersList, Spinner } from '../../components';
 import { fetchUsersRequest } from '../../redux/users/actions';
 import { loadingSelector, usersSelector } from '../../redux/users/selectors';
 import styles from './UsersPage.module.scss';
@@ -29,20 +29,18 @@ export const UsersPage = () => {
 
     return (
         <div className={styles.usersWrap}>
-            <Container>
-                <UsersList />
-                {currentPage > 1 && (
-                    <button
-                        className={styles.usersWrap__btnUp}
-                        type="button"
-                        onClick={scrollUp}
-                    >
-                        &#10595;
-                    </button>
-                )}
+            <UsersList />
+            {currentPage > 1 && (
+                <button
+                    className={styles.usersWrap__btnUp}
+                    type="button"
+                    onClick={scrollUp}
+                >
+                    &#10595;
+                </button>
+            )}
 
-                {isLoading && <Spinner />}
-            </Container>
+            {isLoading && <Spinner />}
         </div>
     );
 };

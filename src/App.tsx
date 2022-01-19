@@ -1,15 +1,25 @@
+import { useSelector } from 'react-redux';
 import { Routes, Navigate, Route } from 'react-router-dom';
-import { PublicRoute, PrivateRoute, Header, Container } from './components';
+import {
+    PublicRoute,
+    PrivateRoute,
+    Header,
+    Container,
+    AppBar,
+} from './components';
 import { LoginPage, UsersPage, UserInfoPage } from './pages';
+import { isAuthenticatedSelector } from './redux/auth/selectors';
 import { navConfig } from './utils/constants';
 
 function App() {
+    const isAuth = useSelector(isAuthenticatedSelector);
     const { login, users, user, userId } = navConfig;
 
     return (
         <>
             <Header />
             <Container>
+                {isAuth && <AppBar />}
                 <Routes>
                     <Route
                         path={login.path}

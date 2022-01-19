@@ -60,6 +60,10 @@ interface State {
         isLoading: boolean;
         erro: Error;
     };
+
+    localeReducer: {
+        locale: string;
+    };
 }
 
 interface Action<P> {

@@ -1,3 +1,5 @@
+@import '../../assets/styles/variables.scss';
+
 .header {
     width: 100%;
 
@@ -6,4 +8,9 @@
     padding-bottom: 10px;
 
     background-color: #ffffff;
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
 }

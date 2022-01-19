@@ -1,0 +1,24 @@
+@import '../../assets/styles/variables.scss';
+
+.langButtons {
+    &__btn {
+        padding: 10px;
+
+        background-color: transparent;
+        border: none;
+        border-radius: $border-radius;
+
+        cursor: pointer;
+        transition: background-color $transition-duration $timing-function,
+            transform $transition-duration $timing-function;
+
+        &:hover {
+            background-color: $primary-bcg-color;
+            transform: scale($scale-value);
+        }
+    }
+
+    &__flag {
+        display: block;
+    }
+}

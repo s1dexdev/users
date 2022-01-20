@@ -1,13 +1,20 @@
-import * as Type from './types';
-import { CreateAction } from '../../interfaces';
+import { createAction } from '@reduxjs/toolkit';
+import { User } from '../../interfaces';
 
-const createAction: CreateAction = type => data => ({ type, payload: data });
+interface Payload {
+    page: number;
+    results: number;
+}
 
-const fetchUsersRequest = createAction(Type.FETCH_USERS_REQUEST);
-const fetchUsersSuccess = createAction(Type.FETCH_USERS_SUCCESS);
-const fetchUsersError = createAction(Type.FETCH_USERS_ERROR);
+type FetchUsers = Payload | undefined;
 
-const addFetchUsersSuccess = createAction(Type.ADD_FETCH_USERS_SUCCESS);
+const fetchUsersRequest = createAction<FetchUsers>('USERS/FETCH_USERS_REQUEST');
+const fetchUsersSuccess = createAction<User[]>('USERS/FETCH_USERS_SUCCESS');
+const fetchUsersError = createAction<unknown>('USERS/FETCH_USERS_ERROR');
+
+const addFetchUsersSuccess = createAction<User[]>(
+    'USERS/ADD_FETCH_USERS_SUCCESS',
+);
 
 export {
     fetchUsersRequest,

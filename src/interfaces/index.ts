@@ -66,13 +66,4 @@ interface State {
     };
 }
 
-interface Action<P> {
-    type: string;
-    payload: P;
-}
-
-type CreateAction = (
-    type: string,
-) => <P>(data?: P) => { type: string; payload?: P };
-
-export type { Action, CreateAction, User, State };
+export type { User, State };

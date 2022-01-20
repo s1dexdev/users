@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from '@redux-saga/core/effects';
-import { FETCH_USERS_REQUEST } from './types';
 import {
+    fetchUsersRequest,
     fetchUsersSuccess,
     fetchUsersError,
     addFetchUsersSuccess,
@@ -31,5 +31,5 @@ function* fetchUsersSaga({ payload }: IParams): Generator {
 }
 
 export function* watchUsers(): Generator {
-    yield takeLatest(FETCH_USERS_REQUEST, fetchUsersSaga);
+    yield takeLatest(fetchUsersRequest.type, fetchUsersSaga);
 }

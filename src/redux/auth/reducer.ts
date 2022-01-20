@@ -1,55 +1,42 @@
-import * as Type from './types';
-import { Action } from '../../interfaces';
+import { combineReducers } from 'redux';
+import { createReducer } from '@reduxjs/toolkit';
+import {
+    loginRequest,
+    loginSuccess,
+    loginError,
+    logoutRequest,
+    logoutSuccess,
+    logoutError,
+} from './actions';
 
-interface AuthState {
-    isAuthenticated: boolean;
-    isLoading: boolean;
-    error: null | Error;
-}
+const isAuthenticated = createReducer(false, {
+    [loginSuccess.type]: () => true,
+    [logoutSuccess.type]: () => false,
 
-const initialState: AuthState = {
-    isAuthenticated: false,
-    isLoading: false,
-    error: null,
-};
+    [loginError.type]: () => false,
+    [logoutError.type]: () => false,
+});
 
-export const authReducer = <T>(state: AuthState, action: Action<T>) => {
-    state = state || initialState;
+const isLoading = createReducer(false, {
+    [loginRequest.type]: () => true,
+    [loginSuccess.type]: () => false,
+    [loginError.type]: () => false,
 
-    switch (action.type) {
-        case Type.LOGIN_REQUEST:
-        case Type.LOGOUT_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-                error: null,
-            };
+    [logoutRequest.type]: () => true,
+    [logoutSuccess.type]: () => false,
+    [logoutError.type]: () => false,
+});
 
-        case Type.LOGIN_SUCCESS:
-            return {
-                ...state,
-                isAuthenticated: true,
-                isLoading: false,
-                error: null,
-            };
+const error = createReducer(null, {
+    [loginError.type]: (_, { payload }) => payload,
+    [logoutError.type]: (_, { payload }) => payload,
 
-        case Type.LOGOUT_SUCCESS:
-            return {
-                ...state,
-                isAuthenticated: false,
-                isLoading: false,
-                error: null,
-            };
+    [loginRequest.type]: () => null,
+    [logoutRequest.type]: () => null,
+});
 
-        case Type.LOGIN_ERROR:
-        case Type.LOGOUT_ERROR:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload,
-            };
-
-        default:
-            return state;
-    }
-};
+export const authReducer = combineReducers({
+    isAuthenticated,
+    isLoading,
+    error,
+});

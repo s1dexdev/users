@@ -1,17 +1,30 @@
+import { useSelector } from 'react-redux';
+import { format } from 'date-fns';
+import { ru, enUS } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
-import { parseDate } from '../../utils/helpers';
+import { localeSelector } from '../../redux/locale/selectors';
 import { User } from '../../interfaces';
 import styles from './UserInfo.module.scss';
 
+type DateType = number | Date;
+
 export const UserInfo = ({ user }: { user: User }) => {
     const { t } = useTranslation();
-    const { picture, name, dob, gender, location, phone, registered } = user;
+    const language = useSelector(localeSelector);
+
+    const parseDate = (date: DateType, lang: string, formatStr = 'PP') => {
+        const locales: Record<string, Locale> = { enUS, ru };
+
+        return format(date, formatStr, {
+            locale: locales[lang],
+        });
+    };
 
     return (
         <div className={`${styles.userBox}`}>
             <img
                 className={styles.userBox__photo}
-                src={picture.large}
+                src={user.picture.large}
                 width="180"
                 height="180"
                 alt="User`s photo"
@@ -20,27 +33,27 @@ export const UserInfo = ({ user }: { user: User }) => {
             <div className={styles.userBox__info}>
                 <p>
                     <b>{t('userInfoPage.user.name')}:</b>{' '}
-                    {`${name.first} ${name.last}`}
+                    {`${user.name.first} ${user.name.last}`}
                 </p>
                 <p>
                     <b>{t('userInfoPage.user.dob')}: </b>
-                    {parseDate(new Date(dob.date))}
+                    {parseDate(new Date(user.dob.date), language)}
                 </p>
                 <p>
                     <b>{t('userInfoPage.user.gender')}: </b>
-                    {gender}
+                    {user.gender}
                 </p>
                 <p>
                     <b>{t('userInfoPage.user.address')}: </b>
-                    {location.city}
+                    {user.location.city}
                 </p>
                 <p>
                     <b>{t('userInfoPage.user.phone')}: </b>
-                    {phone}
+                    {user.phone}
                 </p>
                 <p>
                     <b>{t('userInfoPage.user.regDate')}: </b>
-                    {parseDate(new Date(registered.date))}
+                    {parseDate(new Date(user.registered.date), language)}
                 </p>
             </div>
         </div>

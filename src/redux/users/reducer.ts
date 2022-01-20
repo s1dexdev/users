@@ -1,58 +1,27 @@
-import * as Type from './types';
-import { User } from '../../interfaces';
+import { combineReducers } from 'redux';
+import { createReducer } from '@reduxjs/toolkit';
+import {
+    fetchUsersRequest,
+    fetchUsersSuccess,
+    fetchUsersError,
+    addFetchUsersSuccess,
+} from './actions';
 
-interface UserState {
-    users: User[];
-    isLoading: boolean;
-    error: null | Error;
-}
+const users = createReducer([], {
+    [fetchUsersSuccess.type]: (_, { payload }) => payload,
+    [addFetchUsersSuccess.type]: (state, { payload }) => [...state, ...payload],
+});
 
-interface Action<T> {
-    type: string;
-    payload: T & T[];
-}
+const isLoading = createReducer(false, {
+    [fetchUsersRequest.type]: () => true,
+    [fetchUsersSuccess.type]: () => false,
+    [fetchUsersError.type]: () => false,
 
-const initialState: UserState = {
-    users: [],
-    isLoading: false,
-    error: null,
-};
+    [addFetchUsersSuccess.type]: () => false,
+});
 
-export const usersReducer = <T>(state: UserState, action: Action<T>) => {
-    state = state || initialState;
+const error = createReducer(null, {
+    [fetchUsersError.type]: (_, { payload }) => payload,
+});
 
-    switch (action.type) {
-        case Type.FETCH_USERS_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-                error: null,
-            };
-
-        case Type.FETCH_USERS_SUCCESS:
-            return {
-                ...state,
-                users: action.payload,
-                isLoading: false,
-                error: null,
-            };
-
-        case Type.ADD_FETCH_USERS_SUCCESS:
-            return {
-                ...state,
-                users: [...state.users, ...action.payload],
-                isLoading: false,
-                error: null,
-            };
-
-        case Type.FETCH_USERS_ERROR:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload,
-            };
-
-        default:
-            return state;
-    }
-};
+export const usersReducer = combineReducers({ users, isLoading, error });

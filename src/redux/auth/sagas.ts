@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from '@redux-saga/core/effects';
-import { LOGIN_REQUEST, LOGOUT_REQUEST } from './types';
 import {
+    loginRequest,
+    logoutRequest,
     loginSuccess,
     logoutSuccess,
     loginError,
@@ -29,6 +30,6 @@ function* logoutSaga(): Generator {
 }
 
 export function* watchAuth(): Generator {
-    yield takeLatest(LOGIN_REQUEST, loginSaga);
-    yield takeLatest(LOGOUT_REQUEST, logoutSaga);
+    yield takeLatest(loginRequest.type, loginSaga);
+    yield takeLatest(logoutRequest.type, logoutSaga);
 }

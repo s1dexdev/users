@@ -24,7 +24,7 @@ export const AppBar = () => {
                 <NavLink end to={navConfig.users.path} className={setClass}>
                     {t('appBar.users')}
                 </NavLink>
-                <NavLink to={navConfig.user.path} className={setClass}>
+                <NavLink to={navConfig.userInfo.path} className={setClass}>
                     {t('appBar.userInfo')}
                 </NavLink>
                 <button className="btn" type="button" onClick={logout}>

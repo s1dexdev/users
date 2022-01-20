@@ -7,7 +7,7 @@ export const navConfig = {
         path: '/users',
         label: 'Users',
     },
-    user: {
+    userInfo: {
         path: '/users/userinfo',
         label: 'User info',
     },

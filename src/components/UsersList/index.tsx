@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { User } from '../../components';
@@ -11,30 +10,34 @@ export const UsersList = () => {
     const dispatch = useDispatch();
     const users = useSelector(usersSelector);
     const [searchParams, setSearchParams] = useSearchParams();
+    const [loading, setLoading] = useState(false);
     const ulRef = useRef<HTMLUListElement>(null);
 
-    let page = Number(searchParams.get('page'));
+    useEffect(() => {
+        let page = Number(searchParams.get('page'));
+
+        if (loading) {
+            page += 1;
+            dispatch(fetchUsersRequest({ page, results: 10 }));
+            setSearchParams(`page=${page}`);
+            setLoading(false);
+        }
+    }, [loading, dispatch, searchParams, setSearchParams]);
 
     useEffect(() => {
         if (!ulRef.current?.lastElementChild) {
             return;
         }
 
-        const fetchAdditionalUsers = () => {
-            page += 1;
-            setSearchParams(`page=${page}`);
-            dispatch(fetchUsersRequest({ page, results: 10 }));
-        };
-
         const io = new IntersectionObserver(([entry], observer) => {
             if (entry.isIntersecting) {
-                fetchAdditionalUsers();
+                setLoading(true);
                 observer.disconnect();
             }
         });
 
         io.observe(ulRef.current.lastElementChild);
-    }, [dispatch, users]);
+    }, [users]);
 
     return (
         <ul ref={ulRef} className={styles.usersList}>

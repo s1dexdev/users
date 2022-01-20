@@ -15,7 +15,7 @@ export const User = ({ user }: IProps) => {
         <li className={`${styles.person} ${styles[gender]}`}>
             <NavLink
                 className={styles.person__link}
-                to={`${navConfig.user.path}/${user.login.uuid}`}
+                to={`${navConfig.userInfo.path}/${user.login.uuid}`}
                 state={user}
             >
                 <img

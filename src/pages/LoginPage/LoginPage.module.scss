@@ -2,10 +2,13 @@
 
 .loginWrap {
     width: 300px;
-    margin: 0 auto;
+    margin-top: 80px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 25px;
 
     background-color: #ffffff;
+    border: 1px solid $active-link-color;
     border-radius: $border-radius;
 
     &__title {

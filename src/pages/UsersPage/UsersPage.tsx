@@ -18,7 +18,9 @@ const UsersPage = () => {
             dispatch(fetchUsersRequest());
             setSearchParams('page=1');
         }
-    }, [dispatch, users, currentPage, setSearchParams]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const scrollUp = () =>
         window.scrollTo({

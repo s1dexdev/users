@@ -1,0 +1,15 @@
+@import '../../assets/styles/variables.scss';
+
+.header {
+    width: 100%;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    background-color: #ffffff;
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+}

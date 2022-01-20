@@ -1,0 +1,10 @@
+@import '../../assets/styles/variables.scss';
+
+.usersList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -15px;
+
+    background-color: #ffffff;
+    border-radius: $border-radius;
+}

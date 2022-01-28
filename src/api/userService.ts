@@ -7,20 +7,23 @@ interface IParams {
     results: number;
 }
 
-const { baseUrl, params, defaultFetch } = apiConfig;
-
-Axios.defaults.baseURL = baseUrl;
-Axios.defaults.params = { ...params };
+Axios.defaults.baseURL = apiConfig.baseUrl;
 
 const fetchUsers = async (options?: IParams): Promise<User[]> => {
-    options = options || defaultFetch;
+    options = options || apiConfig.defaultFetch;
 
-    Axios.defaults.params.page = options.page;
-    Axios.defaults.params.results = options.results;
+    const requestConfig = {
+        params: {
+            page: options.page,
+            results: options.results,
+            seed: apiConfig.params.seed,
+            exc: apiConfig.params.exc,
+        },
+    };
 
     const {
         data: { results },
-    } = await Axios.get('/');
+    } = await Axios.get('/', requestConfig);
 
     return results;
 };

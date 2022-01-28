@@ -20,9 +20,36 @@
         text-align: center;
     }
 
-    & button {
+    &__login {
         display: block;
         width: 100px;
         margin: 0 auto;
+        padding: 5px 10px;
+
+        color: #ffffff;
+        font-weight: 500;
+
+        background-color: rgb(76, 109, 151);
+        border: none;
+        border-radius: $border-radius;
+
+        cursor: pointer;
+        transition: transform $transition-duration $timing-function,
+            color $transition-duration $timing-function,
+            background-color $transition-duration $timing-function;
+
+        &:hover {
+            color: $active-link-color;
+
+            background-color: #cdd3e0;
+
+            transform: scale($scale-value);
+        }
     }
+
+    // & button {
+    //     display: block;
+    //     width: 100px;
+    //     margin: 0 auto;
+    // }
 }

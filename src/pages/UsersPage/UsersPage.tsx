@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { UsersList, Spinner } from '../../components';
+import { Spinner, Button } from '../../components';
+import { UserListContainer } from '../../containers';
 import { fetchUsersRequest } from '../../redux/users/actions';
 import { loadingSelector, usersSelector } from '../../redux/users/selectors';
 import styles from './UsersPage.module.scss';
@@ -22,23 +23,26 @@ const UsersPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const scrollUp = () =>
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
+    const scrollUp = useCallback(
+        () =>
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            }),
+        [],
+    );
 
     return (
         <div className={styles.usersWrap}>
-            <UsersList />
+            <UserListContainer />
             {currentPage > 1 && (
-                <button
-                    className={styles.usersWrap__btnUp}
-                    type="button"
-                    onClick={scrollUp}
+                <Button
+                    customClass={styles.usersWrap__btnUp}
+                    name="scroll"
+                    onHandleClick={scrollUp}
                 >
                     &#10595;
-                </button>
+                </Button>
             )}
 
             {isLoading && <Spinner />}

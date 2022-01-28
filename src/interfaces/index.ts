@@ -48,22 +48,4 @@ interface User {
     };
 }
 
-interface State {
-    authReducer: {
-        isAuthenticated: boolean;
-        isLoading: boolean;
-        erro: Error;
-    };
-
-    usersReducer: {
-        users: User[];
-        isLoading: boolean;
-        erro: Error;
-    };
-
-    localeReducer: {
-        locale: string;
-    };
-}
-
-export type { User, State };
+export type { User };

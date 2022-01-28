@@ -1,6 +1,7 @@
-import { State } from '../../interfaces';
+import { User } from '../../interfaces';
+import { RootState } from '../store';
 
-const usersSelector = (state: State) => state.usersReducer.users;
-const loadingSelector = (state: State) => state.usersReducer.isLoading;
+const usersSelector = (state: RootState) => state.usersReducer.users as User[];
+const loadingSelector = (state: RootState) => state.usersReducer.isLoading;
 
 export { usersSelector, loadingSelector };

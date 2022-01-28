@@ -1,18 +1,17 @@
-import { Container, LangButtons } from '../../components';
+import { Container } from '../../components';
+import { LangButtonsContainer } from '../../containers';
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 import styles from './Header.module.scss';
 
-export const Header = () => {
-    return (
-        <header className={styles.header}>
-            <Container>
-                <div className={styles.header__wrapper}>
-                    <div>
-                        <Logo />
-                    </div>
-                    <LangButtons />
+export const Header = () => (
+    <header className={styles.header}>
+        <Container>
+            <div className={styles.header__wrapper}>
+                <div>
+                    <Logo />
                 </div>
-            </Container>
-        </header>
-    );
-};
+                <LangButtonsContainer />
+            </div>
+        </Container>
+    </header>
+);

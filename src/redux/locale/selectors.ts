@@ -1,3 +1,3 @@
-import { State } from '../../interfaces';
+import { RootState } from '../store';
 
-export const localeSelector = (state: State) => state.localeReducer.locale;
+export const localeSelector = (state: RootState) => state.localeReducer.locale;

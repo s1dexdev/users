@@ -1,30 +1,29 @@
-import { useDispatch } from 'react-redux';
-import { setLocale } from '../../redux/locale/action';
+import { MouseEvent } from 'react';
+import { Button } from '../../components';
 import { LOCALES } from '../../lang';
 import { ReactComponent as GbFlag } from '../../assets/images/gb.svg';
 import { ReactComponent as RuFlag } from '../../assets/images/ru.svg';
 import styles from './LangButtons.module.scss';
 
-export const LangButtons = () => {
-    const dispatch = useDispatch();
-    const changeLanguage = (locale: string) => dispatch(setLocale(locale));
+interface Params {
+    onChangeLanguage: (event: MouseEvent) => void;
+}
 
-    return (
-        <div className={styles.langButtons}>
-            <button
-                className={styles.langButtons__btn}
-                type="button"
-                onClick={() => changeLanguage(LOCALES.RUSSIAN)}
-            >
-                <RuFlag className={styles.langButtons__flag} width={26} />
-            </button>
-            <button
-                className={styles.langButtons__btn}
-                type="button"
-                onClick={() => changeLanguage(LOCALES.ENGLISH)}
-            >
-                <GbFlag className={styles.langButtons__flag} width={26} />
-            </button>
-        </div>
-    );
-};
+export const LangButtons = ({ onChangeLanguage }: Params) => (
+    <div className={styles.langButtons}>
+        <Button
+            customClass={styles.langButtons__btn}
+            name={LOCALES.RUSSIAN}
+            onHandleClick={onChangeLanguage}
+        >
+            <RuFlag className={styles.langButtons__flag} width={26} />
+        </Button>
+        <Button
+            customClass={styles.langButtons__btn}
+            name={LOCALES.ENGLISH}
+            onHandleClick={onChangeLanguage}
+        >
+            <GbFlag className={styles.langButtons__flag} width={26} />
+        </Button>
+    </div>
+);

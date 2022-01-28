@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spinner } from '../../components';
+import { Spinner, Button } from '../../components';
 import { loginRequest } from '../../redux/auth/actions';
 import { loadingSelector } from '../../redux/auth/selectors';
 import styles from './LoginPage.module.scss';
@@ -13,17 +13,17 @@ const LoginPage = () => {
     const login = () => dispatch(loginRequest());
 
     return (
-        <>
-            <div className={styles.loginWrap}>
-                <p className={styles.loginWrap__title}>
-                    {t('loginPage.title')}
-                </p>
-                <button className="btn" type="button" onClick={login}>
-                    {t('loginPage.login')}
-                </button>
-            </div>
+        <div className={styles.loginWrap}>
+            <p className={styles.loginWrap__title}>{t('loginPage.title')}</p>
+            <Button
+                customClass={styles.loginWrap__login}
+                name="login"
+                onHandleClick={login}
+            >
+                {t('loginPage.login')}
+            </Button>
             {isLoading && <Spinner />}
-        </>
+        </div>
     );
 };
 

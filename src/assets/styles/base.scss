@@ -27,27 +27,17 @@ ul {
     list-style: none;
 }
 
-.btn {
-    display: inline-block;
-    padding: 5px 10px;
+.text {
+    margin: 0 auto;
+    width: 650px;
+    padding: 20px;
 
-    color: #ffffff;
+    color: $primary-text-color;
+    font-size: 24px;
     font-weight: 500;
+    text-align: center;
 
-    background-color: rgb(76, 109, 151);
-    border: none;
+    background-color: #ffffff;
+    border: 1px solid $active-link-color;
     border-radius: $border-radius;
-
-    cursor: pointer;
-    transition: transform $transition-duration $timing-function,
-        color $transition-duration $timing-function,
-        background-color $transition-duration $timing-function;
-
-    &:hover {
-        color: $active-link-color;
-
-        background-color: #cdd3e0;
-
-        transform: scale($scale-value);
-    }
 }

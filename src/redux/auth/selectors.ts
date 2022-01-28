@@ -1,7 +1,7 @@
-import { State } from '../../interfaces';
+import { RootState } from '../store';
 
-const isAuthenticatedSelector = (state: State) =>
+const isAuthenticatedSelector = (state: RootState) =>
     state.authReducer.isAuthenticated;
-const loadingSelector = (state: State) => state.authReducer.isLoading;
+const loadingSelector = (state: RootState) => state.authReducer.isLoading;
 
 export { isAuthenticatedSelector, loadingSelector };

@@ -10,3 +10,4 @@ export { UserList } from './UserList';
 export { User } from './User';
 export { UserInfo } from './UserInfo';
 export { Router } from './Router';
+export { LoginForm } from './LoginForm';

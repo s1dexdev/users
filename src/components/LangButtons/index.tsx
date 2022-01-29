@@ -13,6 +13,7 @@ export const LangButtons = ({ onChangeLanguage }: Params) => (
     <div className={styles.langButtons}>
         <Button
             customClass={styles.langButtons__btn}
+            type="button"
             name={LOCALES.RUSSIAN}
             onHandleClick={onChangeLanguage}
         >
@@ -20,6 +21,7 @@ export const LangButtons = ({ onChangeLanguage }: Params) => (
         </Button>
         <Button
             customClass={styles.langButtons__btn}
+            type="button"
             name={LOCALES.ENGLISH}
             onHandleClick={onChangeLanguage}
         >

@@ -6,22 +6,27 @@ import {
     fetchUsersError,
     addFetchUsersSuccess,
 } from './actions';
+import { setters } from '../../utils/helpers';
+import { User } from '../../interfaces';
 
-const users = createReducer([], {
-    [fetchUsersSuccess.type]: (_, { payload }) => payload,
+const { setTrue, setFalse, setPayload } = setters;
+
+const users = createReducer<User[]>([], {
+    [fetchUsersSuccess.type]: setPayload,
     [addFetchUsersSuccess.type]: (state, { payload }) => [...state, ...payload],
 });
 
 const isLoading = createReducer(false, {
-    [fetchUsersRequest.type]: () => true,
-    [fetchUsersSuccess.type]: () => false,
-    [fetchUsersError.type]: () => false,
+    [fetchUsersRequest.type]: setTrue,
 
-    [addFetchUsersSuccess.type]: () => false,
+    [fetchUsersSuccess.type]: setFalse,
+    [addFetchUsersSuccess.type]: setFalse,
+
+    [fetchUsersError.type]: setFalse,
 });
 
 const error = createReducer(null, {
-    [fetchUsersError.type]: (_, { payload }) => payload,
+    [fetchUsersError.type]: setPayload,
 });
 
 export const usersReducer = combineReducers({ users, isLoading, error });

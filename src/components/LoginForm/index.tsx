@@ -14,6 +14,7 @@ export const LoginForm = ({ loading, translate, onLogin }: Params) => (
         </p>
         <Button
             customClass={styles.loginWrap__login}
+            type="button"
             name="login"
             onHandleClick={onLogin}
         >

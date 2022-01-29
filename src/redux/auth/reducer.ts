@@ -8,31 +8,35 @@ import {
     logoutSuccess,
     logoutError,
 } from './actions';
+import { setters } from '../../utils/helpers';
+
+const { setTrue, setFalse, setNull, setPayload } = setters;
 
 const isAuthenticated = createReducer(false, {
-    [loginSuccess.type]: () => true,
-    [logoutSuccess.type]: () => false,
+    [loginSuccess.type]: setTrue,
+    [logoutSuccess.type]: setFalse,
 
-    [loginError.type]: () => false,
-    [logoutError.type]: () => false,
+    [loginError.type]: setFalse,
+    [logoutError.type]: setFalse,
 });
 
 const isLoading = createReducer(false, {
-    [loginRequest.type]: () => true,
-    [loginSuccess.type]: () => false,
-    [loginError.type]: () => false,
+    [loginRequest.type]: setTrue,
+    [logoutRequest.type]: setTrue,
 
-    [logoutRequest.type]: () => true,
-    [logoutSuccess.type]: () => false,
-    [logoutError.type]: () => false,
+    [loginSuccess.type]: setFalse,
+    [logoutSuccess.type]: setFalse,
+
+    [loginError.type]: setFalse,
+    [logoutError.type]: setFalse,
 });
 
 const error = createReducer(null, {
-    [loginError.type]: (_, { payload }) => payload,
-    [logoutError.type]: (_, { payload }) => payload,
+    [loginError.type]: setPayload,
+    [logoutError.type]: setPayload,
 
-    [loginRequest.type]: () => null,
-    [logoutRequest.type]: () => null,
+    [loginRequest.type]: setNull,
+    [logoutRequest.type]: setNull,
 });
 
 export const authReducer = combineReducers({

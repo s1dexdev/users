@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { fetchUsersRequest } from '../../redux/users/actions';
 import { usersSelector, loadingSelector } from '../../redux/users/selectors';
 import { UserList } from '../../components';
+import apiConfig from '../../api/apiConfig';
 
 export const UserListContainer = () => {
     const dispatch = useDispatch();
@@ -11,14 +12,17 @@ export const UserListContainer = () => {
     const users = useSelector(usersSelector);
     const [searchParams, setSearchParams] = useSearchParams();
     const ulRef = useRef<HTMLUListElement>(null);
-    const currentPage = Number(searchParams.get('page'));
+
+    const { params, defaultFetch, customFetch } = apiConfig;
+    let currentPage = Number(searchParams.get(params.page));
 
     useEffect(() => {
-        if ((users.length && currentPage) === 0) {
-            dispatch(fetchUsersRequest());
-            setSearchParams('page=1');
+        if (users.length && currentPage) {
+            return;
         }
 
+        dispatch(fetchUsersRequest());
+        setSearchParams(`${params.page}=${defaultFetch.page}`);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -27,12 +31,15 @@ export const UserListContainer = () => {
             return;
         }
 
-        let page = Number(searchParams.get('page'));
-
         const io = new IntersectionObserver(([entry], observer) => {
             if (entry.isIntersecting) {
-                setSearchParams(`page=${++page}`);
-                dispatch(fetchUsersRequest({ page, results: 10 }));
+                setSearchParams(`${params.page}=${++currentPage}`);
+                dispatch(
+                    fetchUsersRequest({
+                        page: currentPage,
+                        results: customFetch.results,
+                    }),
+                );
 
                 observer.disconnect();
             }

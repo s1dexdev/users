@@ -1,24 +1,18 @@
-import { MouseEvent } from 'react';
+import { ButtonHTMLAttributes, MouseEvent } from 'react';
 
-interface Params {
+interface Params extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
-    name: string;
     customClass: string;
     onHandleClick: (event: MouseEvent) => void;
 }
 
 export const Button = ({
     children,
-    name,
     customClass,
     onHandleClick,
+    ...attrs
 }: Params) => (
-    <button
-        type="button"
-        name={name}
-        className={customClass}
-        onClick={onHandleClick}
-    >
+    <button className={customClass} onClick={onHandleClick} {...attrs}>
         {children}
     </button>
 );

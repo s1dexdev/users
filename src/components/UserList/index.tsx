@@ -30,6 +30,7 @@ export const UserList = ({
         {currentPage > 1 && (
             <Button
                 customClass={styles.usersWrap__btnUp}
+                type="button"
                 name="scroll"
                 onHandleClick={onScrollUp}
             >

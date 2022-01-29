@@ -20,14 +20,14 @@ export const UserInfoContainer = () => {
 
     const parseDateCallback = useCallback(parseDate, []);
 
-    return user === undefined ? (
-        <p className="text">{t('userInfoPage.message')}</p>
-    ) : (
+    return user ? (
         <UserInfo
             user={user}
             locale={locale}
             parseDateCallback={parseDateCallback}
             translate={t}
         />
+    ) : (
+        <p className="text">{t('userInfoPage.message')}</p>
     );
 };

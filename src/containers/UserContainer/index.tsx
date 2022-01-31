@@ -14,7 +14,10 @@ interface Params {
 export const UserContainer = ({ user }: Params) => {
     const locale = useSelector(localeSelector);
 
-    const parseDateCallback = useCallback(parseDate, []);
+    const parseDateCallback = useCallback(
+        (date, loc) => parseDate(date, loc),
+        [],
+    );
 
     return (
         <NavLink

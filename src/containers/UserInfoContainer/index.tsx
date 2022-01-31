@@ -18,7 +18,10 @@ export const UserInfoContainer = () => {
         [users, id],
     );
 
-    const parseDateCallback = useCallback(parseDate, []);
+    const parseDateCallback = useCallback(
+        (date, loc) => parseDate(date, loc),
+        [],
+    );
 
     return user ? (
         <UserInfo

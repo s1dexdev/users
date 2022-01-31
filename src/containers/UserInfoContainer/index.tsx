@@ -1,36 +1,35 @@
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { UserInfo } from '../../components';
 import { localeSelector } from '../../redux/locale/selectors';
-import { usersSelector } from '../../redux/users/selectors';
 import { parseDate } from '../../utils/helpers';
+import { User } from '../../interfaces';
 
-export const UserInfoContainer = () => {
+interface Params {
+    user: User;
+}
+
+export const UserInfoContainer = ({ user }: Params) => {
     const { t } = useTranslation();
-    const { id } = useParams();
     const locale = useSelector(localeSelector);
-    const users = useSelector(usersSelector);
 
-    const user = useMemo(
-        () => users.find(({ login }) => login.uuid === id),
-        [users, id],
+    const userBirthday = useMemo(
+        () => parseDate(new Date(user.dob.date), locale),
+        [user.dob.date, locale],
     );
 
-    const parseDateCallback = useCallback(
-        (date, loc) => parseDate(date, loc),
-        [],
+    const userRegDate = useMemo(
+        () => parseDate(new Date(user.registered.date), locale),
+        [user.registered.date, locale],
     );
 
-    return user ? (
+    return (
         <UserInfo
             user={user}
-            locale={locale}
-            parseDateCallback={parseDateCallback}
+            userBirthday={userBirthday}
+            userRegDate={userRegDate}
             translate={t}
         />
-    ) : (
-        <p className="text">{t('userInfoPage.message')}</p>
     );
 };

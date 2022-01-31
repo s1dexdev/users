@@ -33,13 +33,15 @@ export const UserListContainer = () => {
 
         const io = new IntersectionObserver(([entry], observer) => {
             if (entry.isIntersecting) {
-                setSearchParams(`${params.page}=${++currentPage}`);
-                dispatch(
-                    fetchUsersRequest({
-                        page: currentPage,
-                        results: customFetch.results,
-                    }),
-                );
+                if (!isLoading) {
+                    setSearchParams(`${params.page}=${++currentPage}`);
+                    dispatch(
+                        fetchUsersRequest({
+                            page: currentPage,
+                            results: customFetch.results,
+                        }),
+                    );
+                }
 
                 observer.disconnect();
             }

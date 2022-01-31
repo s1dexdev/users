@@ -3,15 +3,15 @@ import styles from './UserInfo.module.scss';
 
 interface Params {
     user: User;
-    locale: string;
-    parseDateCallback: (date: Date | number, locale: string) => string;
+    userBirthday: string;
+    userRegDate: string;
     translate: (value: string) => string;
 }
 
 export const UserInfo = ({
     user,
-    locale,
-    parseDateCallback,
+    userBirthday,
+    userRegDate,
     translate,
 }: Params) => (
     <div className={`${styles.userBox}`}>
@@ -30,7 +30,7 @@ export const UserInfo = ({
             </p>
             <p>
                 <b>{translate('userInfoPage.user.dob')}: </b>
-                {parseDateCallback(new Date(user.dob.date), locale)}
+                {userBirthday}
             </p>
             <p>
                 <b>{translate('userInfoPage.user.gender')}: </b>
@@ -46,7 +46,7 @@ export const UserInfo = ({
             </p>
             <p>
                 <b>{translate('userInfoPage.user.regDate')}: </b>
-                {parseDateCallback(new Date(user.registered.date), locale)}
+                {userRegDate}
             </p>
         </div>
     </div>

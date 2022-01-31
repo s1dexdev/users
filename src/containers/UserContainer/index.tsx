@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { localeSelector } from '../../redux/locale/selectors';
@@ -14,9 +14,9 @@ interface Params {
 export const UserContainer = ({ user }: Params) => {
     const locale = useSelector(localeSelector);
 
-    const parseDateCallback = useCallback(
-        (date, loc) => parseDate(date, loc),
-        [],
+    const userBirthday = useMemo(
+        () => parseDate(new Date(user.dob.date), locale),
+        [user.dob.date, locale],
     );
 
     return (
@@ -24,11 +24,7 @@ export const UserContainer = ({ user }: Params) => {
             className="link"
             to={`${navConfig.userInfo.path}/${user.login.uuid}`}
         >
-            <User
-                user={user}
-                parseDateCallback={parseDateCallback}
-                locale={locale}
-            />
+            <User user={user} userBirthday={userBirthday} />
         </NavLink>
     );
 };

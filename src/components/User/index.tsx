@@ -3,11 +3,10 @@ import styles from './User.module.scss';
 
 interface Params {
     user: IUser;
-    locale: string;
-    parseDateCallback: (date: Date | number, locale: string) => string;
+    userBirthday: string;
 }
 
-export const User = ({ user, locale, parseDateCallback }: Params) => (
+export const User = ({ user, userBirthday }: Params) => (
     <div className={`${styles.user} ${styles[user.gender]}`}>
         <img
             className={styles.user__photo}
@@ -19,9 +18,7 @@ export const User = ({ user, locale, parseDateCallback }: Params) => (
         <p
             className={styles.user__name}
         >{`${user.name.first} ${user.name.last}`}</p>
-        <p className={styles.user__birthday}>
-            {parseDateCallback(new Date(user.dob.date), locale)}
-        </p>
+        <p className={styles.user__birthday}>{userBirthday}</p>
         <p className={styles.user__gender}>{user.gender}</p>
     </div>
 );

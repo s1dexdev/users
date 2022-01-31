@@ -1,2 +1,2 @@
 export { parseDate } from './parseDate';
-export { setters } from './setters';
+export { reducerSetters } from './reducerSetters';

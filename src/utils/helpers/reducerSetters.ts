@@ -6,4 +6,4 @@ const setNull = () => null;
 
 const setPayload: SetPayload = (state, { payload }) => payload;
 
-export const setters = { setTrue, setFalse, setNull, setPayload };
+export const reducerSetters = { setTrue, setFalse, setNull, setPayload };

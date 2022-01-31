@@ -8,9 +8,9 @@ import {
     logoutSuccess,
     logoutError,
 } from './actions';
-import { setters } from '../../utils/helpers';
+import { reducerSetters } from '../../utils/helpers';
 
-const { setTrue, setFalse, setNull, setPayload } = setters;
+const { setTrue, setFalse, setNull, setPayload } = reducerSetters;
 
 const isAuthenticated = createReducer(false, {
     [loginSuccess.type]: setTrue,

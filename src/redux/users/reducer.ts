@@ -6,10 +6,10 @@ import {
     fetchUsersError,
     addFetchUsersSuccess,
 } from './actions';
-import { setters } from '../../utils/helpers';
+import { reducerSetters } from '../../utils/helpers';
 import { User } from '../../interfaces';
 
-const { setTrue, setFalse, setPayload } = setters;
+const { setTrue, setFalse, setPayload } = reducerSetters;
 
 const users = createReducer<User[]>([], {
     [fetchUsersSuccess.type]: setPayload,
